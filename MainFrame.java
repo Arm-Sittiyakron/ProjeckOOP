@@ -3,6 +3,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import java.awt.Panel;
 import java.awt.Color;
 import java.awt.GridBagLayout;
@@ -41,12 +43,15 @@ import javax.swing.JComboBox;
 import java.awt.CardLayout;
 import java.awt.List;
 import java.awt.Label;
+import javax.swing.JFileChooser;
+import java.io.FileFilter;
 
 public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
+	private final JButton btnNewButton_3 = new JButton("Exit Program");
 
 	/**
 	 * Launch the application.
@@ -56,7 +61,7 @@ public class MainFrame extends JFrame {
 			public void run() {
 				try {
 					MainFrame frame = new MainFrame();
-					frame.setSize(1350, 750);
+					frame.setSize(1350, 700);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -128,9 +133,15 @@ public class MainFrame extends JFrame {
 		
 		Panel panel = new Panel();
 		panel.setBackground(Color.PINK);
-		panel.setBounds(10, 13, 300, 650);
+		panel.setBounds(10, 13, 300, 720);
 		contentPane.add(panel);
 		panel.setLayout(null);
+		btnNewButton_3.setBounds(10, 650, 280, 36);
+		panel.add(btnNewButton_3);
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		
 		Panel panel_1 = new Panel();
 		panel_1.setForeground(new Color(64, 64, 64));
@@ -151,6 +162,17 @@ public class MainFrame extends JFrame {
 		panel_1.add(lblNewJgoodiesLabel);
 		
 		JButton btnNewButton = new JButton("Open File");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileopen = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Text/CSV file", "txt", "csv");
+				fileopen.addChoosableFileFilter(filter);
+				int ret = fileopen.showDialog(null, "Open File");
+				if (ret == JFileChooser.APPROVE_OPTION) {
+					textField.setText(fileopen.getSelectedFile().toString());
+				}//settext
+			}
+		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnNewButton.setBounds(72, 34, 75, 21);
 		panel_1.add(btnNewButton);
